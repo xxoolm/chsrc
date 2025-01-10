@@ -1,9 +1,9 @@
 name: Linux x64 Build
 on:
   push:
-    branches: [ "gh-pipeline" ]
+    branches: [ "gh-build" ]
   pull_request:
-    branches: [ "gh-pipeline" ]
+    branches: [ "gh-build" ]
 
 jobs:
   x64-linux-build-and-upload:
@@ -24,7 +24,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       # if: startsWith(github.ref, 'refs/tags/')
       with:
-        tag_name: latest
+        tag_name: pre
         files: |
           chsrc-x64-linux
         token: ${{ secrets.CHSRC_UPLOAD }}

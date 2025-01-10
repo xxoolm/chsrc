@@ -1,0 +1,170 @@
+@c --------------------------------------------------------------
+@c SPDX-License-Identifier: GFDL-1.3-or-later
+@c --------------------------------------------------------------
+@c Doc Type      : Texinfo
+@c Doc Authors   : Aoran Zeng <ccmywish@qq.com>
+@c Contributors  :  Nul None  <nul@none.org>
+@c               |
+@c Created On    : <2024-08-22>
+@c Last Modified : <2024-10-09>
+@c --------------------------------------------------------------
+
+\input texinfo
+@setfilename chsrc.info
+@settitle chsrc
+
+@set Chsrc_Version v0.1.9
+@set Doc_Publish_Date 2024-10-09
+
+@copying
+@comment 这是软件copyright，不是文档copyright，因此不放在titlepage
+Copyright @copyright{} 2024 Aoran Zeng, Heng Guo
+@end copying
+
+@titlepage
+@title chsrc printed manual
+@subtitle Change Source everywhere for every software!
+@author Aoran Zeng
+@c @insertcopying
+For chsrc @value{Chsrc_Version}
+@page
+@end titlepage
+
+
+@contents
+
+@node Top
+@top chsrc on-terminal manual
+
+The tool and framework @command{chsrc} is a great helper to Change Source for every software on every platform from the command line. This texinfo documentation is published on @b{@value{Doc_Publish_Date}} for @command{chsrc} @b{@value{Chsrc_Version}}
+
+@exdent 使用: chsrc <command> [options] [target] [mirror]
+
+Exit status:
+
+@display
+0 正常执行，一般表示换源成功
+1 用户环境导致的错误，如命令缺失
+2 chsrc 暂未实现支持
+3 维护者导致的镜像站、源信息相关错误
+4 致命错误，由内部Bug导致
+5 致命未知错误，往往代表内部未知Bug
+@end display
+
+@noindent
+维护:
+@itemize
+@item On Gitee:  https://gitee.com/RubyMetric/chsrc/issues
+@item On GitHub: https://github.com/RubyMetric/chsrc/issues
+@end itemize
+
+
+@menu
+* commands:: 命令
+* options:: 选项
+* examples:: 例子
+@end menu
+
+@insertcopying
+
+
+
+@node commands
+@chapter 命令
+
+@section 基本命令
+@table @samp
+@item help
+打印此帮助，或 h, -h, --help
+@item issue
+查看相关issue
+
+@item list (或 ls, 或 l)
+列出可用镜像源，和可换源目标
+
+@item list mirror/target
+列出可用镜像源，或可换源目标
+
+@item list os/lang/ware
+列出可换源的操作系统/编程语言/软件
+@end table
+
+
+@section 测速命令
+@table @samp
+@item measure <target>
+@itemx cesu   <target>
+对该目标所有源测速
+@end table
+
+@page
+@section 查看配置命令
+@table @samp
+@item list <target>
+查看该目标可用源与支持功能
+
+@item get <target>
+查看该目标当前源的使用情况
+@end table
+
+
+@section 换源命令
+@table @samp
+@item set <target>
+换源，自动测速后挑选最快源
+
+@item set <target> first
+换源，使用维护团队测速第一的源
+
+@item set <target> <mirror>
+换源，指定使用某镜像站 (通过list <target>查看)
+
+@item set <target> https://url
+换源，用户自定义源URL
+
+@item reset <target>
+重置，使用上游默认使用的源
+@end table
+
+
+
+@node options
+@chapter 选项
+@table @samp
+@item -dry
+Dry Run，模拟换源过程，命令仅打印并不运行
+
+@item -ipv6
+使用IPv6测速
+
+@item -local
+仅对本项目而非全局换源 (通过ls <target>查看支持情况)
+
+@item -en(glish)
+使用英文输出
+
+@item -no-color
+无颜色输出
+@end table
+
+
+
+@node examples
+@chapter 例子
+@example
+# 测速，寻找最快者，换源
+$ chsrc set ruby
+
+# 列出可用的镜像站
+# 使用 RubyChina 作为镜像站
+$ chsrc ls  ruby
+$ chsrc set ruby rubychina
+
+# 如果您有自己的镜像地址，使用自定义URL
+$ chsrc set ruby https://gems.ruby-china.com/
+
+# 使用维护团队测试的最快镜像站
+$ chsrc set ruby first
+@end example
+
+@bye
